@@ -1,0 +1,41 @@
+<!doctype html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+	<meta charset="UTF-8" />
+	<title>動態問卷 - 統計頁</title>
+	<link rel="stylesheet" th:href="@{/css/bootstrap.min.css}" />
+	<script th:src="@{/js/jquery-3.6.0.js}"></script>
+	<script th:src="@{/js/bootstrap.min.js}"></script>
+</head>
+
+<body>
+	<table>
+		<tr>
+			<td height="79px" width="73px">
+				<input type="image" src="Pictures/75470.png" height="79px" width="73px" />
+			</td>
+			<td>
+			<a href="listPage.html" th:href="@{/listPage}">問卷管理 </a>
+			</td>
+		</tr>
+		<tr>
+			<td colspan="2">
+				<div class="container">
+					<div class="row">
+						<div class="col-lg-10">
+							<h2>
+								<span ID="ltlTitle" th:text="${questionnaireTitle}"></span>
+							</h2>
+							<h4>
+								<span ID="ltlBody" th:text="${questionnaireBody}"></span>
+							</h4>
+							<div ID="plcTotal"></div>
+						</div>
+					</div>
+				</div>
+			</td>
+		</tr>
+	</table>
+
+</body>
+</html>

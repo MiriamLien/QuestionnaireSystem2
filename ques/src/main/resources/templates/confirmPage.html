@@ -1,0 +1,67 @@
+<!doctype html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+	<meta charset="UTF-8" />
+	<title>動態問卷前台 -回答確認頁</title>
+	<link rel="stylesheet" th:href="@{/css/bootstrap.min.css}" />
+	<script th:src="@{/js/jquery-3.6.0.js}"></script>
+	<script th:src="@{/js/bootstrap.min.js}"></script>
+</head>
+<body>
+    <div>
+        <input type="image" src="Pictures/75470.png" height="79px" width="73px">
+        <a href="listPage.html" th:href="@{/listPage}">前台問卷管理</a>
+    </div>
+    <div class="container">
+        <form th:action="@{/confirmPage}" method="post">
+            <div class="row">
+                <div>
+                    <div class="col-lg-12" th:each="questionnaires:${questionnairesList}">
+                        <h1 id="ltltitle" th:text="${questionnaires.questionnaireTitle}"></h1>
+                        <br>
+                        <h3 id="ltlContent" th:text="${questionnaires.questionnaireBody}"></h3>
+                    </div>
+                    <br>
+                    <span>打 * 號者為必填(或必選)</span>
+                    <table>
+                        <tr>
+                            <td>(*)姓名:</td>
+                            <td><input th:value="${session.userinfo.name}" type="text" ID="txtname" placeholder="輸入姓名"
+                                    disabled="disabled">
+                                *請輸入中文姓名*</td>
+                        </tr>
+                        <tr>
+                            <td>(*)手機:</td>
+                            <td><input th:value="${session.userinfo.phone}" type="tel" ID="txtphone"
+                                    placeholder="輸入手機號碼" disabled="disabled">
+                                *請輸入10位數字的號碼*</td>
+                        </tr>
+                        <tr>
+                            <td>(*)Email:</td>
+                            <td><input th:value="${session.userinfo.email}" type="email" ID="txtemail"
+                                    placeholder="輸入信箱" disabled="disabled">
+                                *信箱應該包含@*</td>
+                        </tr>
+                        <tr>
+                            <td>(*)年齡:</td>
+                            <td><input th:value="${session.userinfo.age}" type="number" ID="txtage" placeholder="輸入年齡"
+                                    disabled="disabled">
+                                *請輸入介於10~150之間*</td>
+                        </tr>
+                    </table>
+                    <hr class="my-4 invisible">
+                    <br><br>
+                    <!-- 問題回答 -->
+                    <div id="quesAns"></div>
+                    <br>
+                </div>
+            </div>
+            <br><br>
+            <button ID="btnCancle" type="reset" th:href="@{/formPage(ID=${q.questionnaireId})}">取消</button>
+            <button ID="btnSubmit" type="submit" th:confirm-submit="|您確定要送出回答嗎？|"
+                onclick="return confirm(this.getAttribute('confirm-submit'))">送出</button>
+            <br>
+        </form>
+    </div>
+</body>
+</html>
