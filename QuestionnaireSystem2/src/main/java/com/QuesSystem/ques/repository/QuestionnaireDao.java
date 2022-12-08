@@ -2,6 +2,7 @@ package com.QuesSystem.ques.repository;
 
 import java.util.Date;
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -14,99 +15,66 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.QuesSystem.ques.entity.Questionnaire;
 
-@Repository
 @Transactional
+@Repository
 public interface QuestionnaireDao extends JpaRepository<Questionnaire, String> {
 	
-	/* °İ¨÷²M³æ·j´M
-	 * ¨Ï¥ÎquestionnaireId
+	/* å•å·åˆ—è¡¨æœå°‹
+	 * ä½¿ç”¨questionnaireId
 	 */
 	public List<Questionnaire> findListByQuestionnaireId(String questionnaireId);
 	
-	/* °İ¨÷·j´M
-	 * ¨Ï¥ÎquestionnaireId
+	/* å•å·æœå°‹
+	 * ä½¿ç”¨questionnaireId
 	 */
 	@Query("select q from Questionnaire q where q.questionnaireId = :inputQuesId")
 	public void findByQuestionnaireId(@Param("inputQuesId") String questionnaireId);
 	
-	/* °İ¨÷·j´M
-	 * ¨Ï¥ÎquestionnaireTitle
+	/* å•å·æœå°‹
+	 * ä½¿ç”¨questionnaireTitle
 	 */
 	@Query("select q from Questionnaire q where q.questionnaireTitle = :inputQuesTitle")
-	public void findByQuestionnaireTitle(@Param("inputQuesTitle") String questionnaireTitle);
-	
-	/* °İ¨÷·j´M(List)
-	 * ¨Ï¥ÎquestionnaireStates = 1
+	public void findByQuestionnaireTitle(@Param("inputQuesTitle") String questionnaireTitle);		
+		
+	/* å•å·æœå°‹(List)
+	 * ä½¿ç”¨questionnaireStates
 	 */
 	@Query("select q from Questionnaire q where q.questionnaireStates = :inputQuesStates")
-	public List<Questionnaire> findByQuesStates(@Param("inputQuesStates") boolean questionnaireStates);
+	public List<Questionnaire> findByQuesstates(@Param("inputQuesStates") boolean questionnaireStates);
 	
-	/* °İ¨÷·j´M(List)
-	 * ¨Ï¥ÎstartDate©Î¬OendDate
-	 */
-//	@Query("select q from Questionnaire q where q.startDate = :inputStartDate or q.endDate = :inputEndDate")
-//	public List<Questionnaire> findByStartDateOrEndDate(@Param("inputStartDate") Date startDate,
-//			                                            @Param("inputEndDate") Date endDate);
-//	
-//	/* °İ¨÷·j´M(List)
-//	 * ¨Ï¥ÎstartDate©MendDate
-//	 */
-//	@Query("select q from Questionnaire q where q.startDate = :inputStartDate and q.endDate = :inputEndDate")			
-//	public List<Questionnaire> findByStartDateAndEndDate(@Param("inputStartDate") Date startDate,
-//			                                             @Param("inputEndDate") Date endDate);
-//	
-//	/* °İ¨÷§ó·s
-//	 * ¨Ï¥ÎquestionnaireId
-//	 */
-//	@Modifying
-//	@Query("update Questionnaire q set q.questionnaireTitle = :inputQuesTitle, q.questionnaireBody = :inputQuesBody"
-//			+ " ,q.startDate = :inputStartDate, q.endDate = :inputEndDate, q.questionnaireStates = :inputQuesStates where q.questionnaireId = :inputQuesId")
-//	public void updateByQuestionnaireId(@Param("inputQuesTitle") String questionnaireTitle,
-//			                            @Param("inputQuesBody") String questionnaireBody,
-//			                            @Param("inputStartDate") Date startDate,
-//                                      @Param("inputEndDate") Date endDate,
-//			                            @Param("inputQuesStates") boolean questionnaireStates,
-//			                            @Param("inputQuesId") String questionnaireId);	
-	
-	/* §R°£°İ¨÷
-	 * ¨Ï¥ÎquestionnaireId
+	/* åˆªé™¤å•å·
+	 * ä½¿ç”¨questionnaireId
 	 */
 	@Modifying
 	@Query("delete from Questionnaire q where q.questionnaireId = :inputQuesId")
-	public void deleteByQuestionnaireId(@Param("inputQuesId") String questionnaireId);
+	public void deletebyQuestionnaireId(@Param("inputQuesId") String questionnaireId);
 	
 	
-	/* «e¥x°İ¨÷·j´M
-	 * ¨Ï¥ÎquestionnaireStates(°İ¨÷ª¬ºA)
+	/*
+	 * (å‰å°)æœå°‹åŠŸèƒ½
 	 */
 	@Query("select q from Questionnaire q where q.questionnaireStates = :inputQuesStates")
-	 public Page<Questionnaire> findByPageableFront(Pageable pageable,
-	                          						@Param("inputQuesStates") boolean questionnaireStates);
-	 
-	/* «e¥x°İ¨÷·j´M
-	 * ¨Ï¥Î°İ¨÷¼ĞÃD(questionnaireTitle)©M°İ¨÷ª¬ºA
+	public Page<Questionnaire> findByPageableFront(Pageable pageable,
+			                                  @Param("inputQuesStates") boolean questionnaireStates);
+	
+	@Query("select q from Questionnaire q where q.questionnaireTitle like %:title%"
+			+ " and q.questionnaireStates = :inputQuesStates")
+	public Page<Questionnaire> findByQuesTitleFront(Pageable pageable,
+			                                        @Param("title") String questionnaireTitle,
+			                                        @Param("inputQuesStates") boolean questionnaireStates);
+	
+	/*
+	 * (å¾Œå°)æœå°‹åŠŸèƒ½
 	 */
-	 @Query("select q from Questionnaire q where q.questionnaireTitle like %:title% and q.questionnaireStates = :inputQuesStates")
-	 public Page<Questionnaire> findByQuestionnaireTitleFront(Pageable pageable,
-			 										 		  @Param("title") String questionnaireTitle,
-			 										 		  @Param("inputQuesStates") boolean questionnaireStates);
-	 
-	 /*
-	  * «á¥x°İ¨÷ & ±`¥Î°İÃDªº·j´M¥\¯à
-	  * ¨Ï¥ÎquestionnaireTitle
-	  */
-	 @Query("select q from Questionnaire q where q.questionnaireTitle like %:title%")
-	 public Page<Questionnaire> findByQuestionnaireTitle(Pageable pageable,
-			 							 				 @Param("title") String questionnaireTitle);
-	 
-	 /*
-	  * ·j´M¥\¯à
-	  * ¨Ï¥Î¶}©l»Pµ²§ô¤é´Á(startDate&endDate)
-	  */
-	 @Query("select q " + "from Questionnaire q"
-	      + " where q.endDate is null and q.startDate >= :startDate and q.startDate < :endDatePlus"
-	      + " or q.startDate >= :startDate and q.endDate < :endDatePlus")
-	 public Page<Questionnaire> findByStartDateAndEndDate(Pageable pageable, 
-	                                     				  @Param("startDate") Date startDate, 
-	                                     				  @Param("endDatePlus") Date endDatePlus);
+	@Query("select q from Questionnaire q where q.questionnaireTitle like %:title%")
+	public Page<Questionnaire> findByQuesTitle(Pageable pageable,
+			                                   @Param("title") String questionnaireTitle);
+	
+	@Query("select q " + "from Questionnaire q"
+		    + " where q.endDate is null and q.startDate >= :startDate and q.startDate < :endDatePlus "
+			+ " or q.startDate >= :startDate and q.endDate < :endDatePlus")
+	public Page<Questionnaire> findByStartDateAndEndDate(Pageable pageable, 
+			                                             @Param("startDate") Date startDate, 
+			                                             @Param("endDatePlus") Date endDatePlus);
+
 }

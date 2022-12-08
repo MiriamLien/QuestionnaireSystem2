@@ -19,7 +19,7 @@ import org.hibernate.annotations.GenericGenerator;
 @Table(name = "userinfo")
 @XmlRootElement
 @NamedQuery(name = "userinfo.findAll", query = "SELECT user FROM Userinfo user")
-public class Userinfo {
+public class Userinfo{
 
 	/*
 	 * 使用者ID
@@ -37,7 +37,7 @@ public class Userinfo {
 	// 單向多對一(表示在持久化的級聯(Cascade)操作) >> 保存問卷ID的同時保存使用者資訊
 	@ManyToOne(cascade = CascadeType.PERSIST)
 	// 指定生成外鍵的名字
-	@JoinColumn(name = "questionnaire_id")
+	@JoinColumn(name = "questionnaire_Id")
 	private Questionnaire questionnaireId;
 
 	/*
@@ -63,12 +63,18 @@ public class Userinfo {
 	 */
 	@Column(name = "age")
 	private String age;
-
+	
 	/*
 	 * 創建日期(使用者填寫問卷的日期)
 	 */
-	@Column(name = "create_date")
+	@Column(name="create_date")
 	private Date createDate = new Date();
+	
+	/*
+	 * 回答
+	 */
+	@Column(name = "answer")
+	private String answer;
 
 	
 	public String getUserId() {
@@ -125,5 +131,13 @@ public class Userinfo {
 
 	public void setCreateDate(Date createDate) {
 		this.createDate = createDate;
+	}
+
+	public String getAnswer() {
+		return answer;
+	}
+
+	public void setAnswer(String answer) {
+		this.answer = answer;
 	}
 }

@@ -9,15 +9,17 @@ import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.QuesSystem.ques.entity.OftenUseQuestion;
+import com.QuesSystem.ques.entity.Questionnaire;
 
-@Repository
 @Transactional
+@Repository
 public interface OftenUseQuestionDao extends JpaRepository<OftenUseQuestion, String> {
-
+	
 	/*
-	 * (藉由標題)搜尋常用問題
+	 * 取得常用問題
+	 * 使用oftenuseTitle(常用問題標題)
 	 */
-	@Query("select often from OftenUseQuestion often where often.title like %:title%")
+	@Query("select often from OftenUseQuestion often where often.oftenuseTitle like %:title%")
 	public Page<OftenUseQuestion> findByOftenuseTitle(Pageable pageable,
-													  @Param("title") String title);
+			                                   @Param("title") String oftenuseTitle);	
 }

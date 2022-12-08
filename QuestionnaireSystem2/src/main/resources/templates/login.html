@@ -2,7 +2,7 @@
 <html lang="ja" xmlns:th="http://www.thymeleaf.org">
 <head>
 	<meta charset="UTF-8" />
-	<title>登入頁面</title>
+	<title>動態問卷 - 登入頁面</title>
 	<link rel="stylesheet" th:href="@{/css/bootstrap.min.css}" />
 	<script th:src="@{/js/jquery-3.6.0.js}"></script>
 	<script th:src="@{/js/bootstrap.min.js}"></script>
@@ -12,26 +12,22 @@
 		}
 	</style>
 	<script th:inline="javascript">
-        var message = /*[[${alertMessage}]]*/ "";
-        if (message != null)
-            alert(message);
-    </script>
+		var message = /*[[${alertMessage}]]*/ "";
+		if(message != null)
+		alert(message);
+	</script>
 </head>
 
 <body>
 	<br>
 	<h1 align="center">登入</h1><br>
-	<form action="#" th:action="@{/login}" method="post">
 	<div id=account>
-		&nbsp;Account： <input type="text" name="account"><br>
-		<div hidden="hidden" style="color:red">請輸入帳號</div><br>
-		Password：<input type="password" id="password" name="password"><br>
-		<div hidden="hidden" style="color:red">請輸入密碼</div><br><br>
+		&nbsp;&nbsp;Account： <input type="text" name="account"><br><br>
+		Password： <input type="text" id="password" name="password"><br><br><br>
 	</div>
 	<div align="center">
-		<button type="submit" class="btn btn-primary" name="login">登入</button>&emsp;&emsp;&emsp;&emsp;
-		<button type="reset" class="btn btn-danger" name="logout" onClick="window.location.href='/listPage';">返回前台</button>
+		<button type=submit class="btn btn-primary" onclick="window.location.href='/backListPage'">登入</button>&emsp;&emsp;&emsp;&emsp;
+		<input type=button class="btn btn-danger" onclick="window.location.href='/listPage'" value="返回前台">
 	</div>
-	</form>
 </body>
 </html>

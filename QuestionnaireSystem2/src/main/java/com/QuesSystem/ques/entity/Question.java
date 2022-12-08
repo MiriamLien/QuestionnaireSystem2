@@ -17,7 +17,7 @@ import org.hibernate.annotations.GenericGenerator;
 @Table(name = "questions")
 @XmlRootElement
 @NamedQuery(name = "questions.findAll", query = "SELECT ques FROM Question ques")
-public class Question {
+public class Question{
 
 	/*
 	 * 問題ID
@@ -27,18 +27,18 @@ public class Question {
 	@GenericGenerator(name = "uuid", strategy = "uuid")
 	@Column(name = "question_id", unique = true)
 	private String questionId;
-
+	
 	/*
 	 * 問卷ID
 	 */
 	@ManyToOne(cascade = CascadeType.PERSIST)
-	@JoinColumn(name = "questionnaire_id")
+	@JoinColumn(name = "questionnaire_Id")
 	private Questionnaire questionnaireId;
-
+	
 	/*
 	 * 問題標題
 	 */
-	@Column(name = "question_title", length = 15)
+	@Column(name = "question_title", length=15)
 	private String questionTitle;
 
 	/*
@@ -46,7 +46,7 @@ public class Question {
 	 */
 	@Column(name = "question_choices")
 	private String questionChoices;
-
+	
 	/*
 	 * 問題類型
 	 */
@@ -58,7 +58,7 @@ public class Question {
 	 */
 	@Column(name = "must_keyin")
 	private boolean mustKeyin;
-
+	
 	/*
 	 * 問題編號
 	 */

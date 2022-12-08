@@ -13,9 +13,12 @@ import javax.xml.bind.annotation.XmlRootElement;
 import org.hibernate.annotations.GenericGenerator;
 
 @Entity
-@XmlRootElement
+// 跟資料庫做互動(name的名稱跟資料庫內的資料表名稱一致)
 @Table(name = "account")
-@NamedQuery(name = "account.findall", query = "SELECT acc FROM Account acc")
+//
+@XmlRootElement
+//
+@NamedQuery(name = "account.findAll", query = "SELECT acc FROM Account acc")
 public class Account {
 
 	/*
@@ -26,23 +29,23 @@ public class Account {
 	@GenericGenerator(name = "uuid", strategy = "uuid")
 	@Column(name = "account_id", unique = true)
 	private String accountId;
-
+	
 	/*
 	 * 帳號
 	 */
 	@Column(name = "account")
 	private String account;
-
+	
 	/*
 	 * 密碼
 	 */
 	@Column(name = "password")
 	private String password;
-
+	
 	/*
 	 * 創建日期
 	 */
-	@Column(name = "create_date")
+	@Column(name="create_date")
 	private Date createDate = new Date();
 
 	

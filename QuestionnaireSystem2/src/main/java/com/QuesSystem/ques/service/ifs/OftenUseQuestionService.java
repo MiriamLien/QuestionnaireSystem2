@@ -5,29 +5,31 @@ import org.springframework.data.domain.Page;
 import com.QuesSystem.ques.entity.OftenUseQuestion;
 
 public interface OftenUseQuestionService {
-
-	/**
-	 * @param pageNum
-	 * @param pageSize
-	 * @return oftenUseQuestion
-	 */
-	public Page<OftenUseQuestion> getOftenUseByPageList(int pageNum, int pageSize);
-
-	/**
-	 * @param pageNum
-	 * @param pageSize
-	 * @param oftenUseTitle ±`¥Î°İÃD¼ĞÃD
-	 * @return oftenuseQuestion
-	 */
-	public Page<OftenUseQuestion> searchOftenUseByoftenuseTitle(int pageNum, int pageSize, String Title);
 	
 	/*
-	 * §R°£±`¥Î°İÃD
+	 * åˆªé™¤å¸¸ç”¨å•é¡Œ
 	 */
 	public void deleteOftenUseQuestion(String[] Id);
 	
 	/*
-	 * ·s¼W±`¥Î°İÃD¨¾§b(¦bQuestionController¸Ìªº61¦æ³Q¨Ï¥Î)
+	 * æ–°å¢å¸¸ç”¨å•é¡Œé˜²å‘†
 	 */
-	public String ErrorMsg(String Title, String Choices, int Type);
+	public String ErrorMsg(String oftenuseTitle, String oftenuseChoices, int oftenuseType);
+
+	/**
+	 * å–å¾—å¸¸ç”¨å•é¡Œ
+	 * @param pageNum
+	 * @param pageSize
+	 * @return oftenuseQues
+	 */
+	public Page<OftenUseQuestion> getOftenUseByPageList(int pageNum, int pageSize);
+
+	/**
+	 * æœå°‹å¸¸ç”¨å•é¡Œæ¨™é¡Œ
+	 * @param pageNum é ç¢¼
+	 * @param pageSize ç­†æ•¸
+	 * @param oftenuseTitle å¸¸ç”¨å•é¡Œæ¨™é¡Œ
+	 * @return oftenuseQues
+	 */
+	public Page<OftenUseQuestion> searchOftenUseByoftenuseTitle(int pageNum, int pageSize, String oftenuseTitle);
 }

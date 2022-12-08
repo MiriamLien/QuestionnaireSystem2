@@ -5,19 +5,19 @@ public class Amount {
 	/*
 	 * 回答
 	 */
-	public String answer;
+	private String answer;
 
 	/*
 	 * 回答編號
 	 */
-	public int answerNumber;
+	private int answerNumber;
 
 	/*
 	 * 回答數量
 	 */
-	public int answerCount;
-
+	private int answerCount;
 	
+
 	public String getAnswer() {
 		return answer;
 	}

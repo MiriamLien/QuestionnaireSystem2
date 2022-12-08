@@ -2,103 +2,123 @@
 <html lang="ja" xmlns:th="http://www.thymeleaf.org">
 
 <head>
-    <meta charset="utf-8">
-    <title>動態問卷前台 - 問卷內頁</title>
-    <link rel="stylesheet" th:href="@{/css/bootstrap.min.css}">
-    <link rel="stylesheet" th:href="@{/css/formPage.css}">
-    <script th:src="@{/js/jquery-3.6.0.js}"></script>
-    <script th:src="@{/js/bootstrap.min.js}"></script>
-    <style>
-
-    </style>
+	<meta charset="utf-8">
+	<title>動態問卷前台 - 內頁</title>
+	<link rel="stylesheet" th:href="@{/css/bootstrap.min.css}" />
+	<link rel="stylesheet" th:href="@{/css/formPage.css}" />
+	<script th:src="@{/js/jquery-3.6.0.js}"></script>
+	<script th:src="@{/js/bootstrap.min.js}"></script>
+	<script th:src="@{/js/formPage.js}"></script>
+	<script th:inline="javascript">
+		var message = /*[[${alertMessage}]]*/ "";
+		if(message != null)
+		alert(message);
+	</script>
 </head>
 
 <body>
     <div class="container">
         <br>
-        <div class="firstDiv col-2">
+        <div class="firstDiv col-8">
             <div id="titleDiv" class="col-2">
                 <h1>前台</h1>
             </div>
-            <div id="topDiv" align="right" class="col-10" th:each="questionnaire:${questionnaire}">
+            <div align="right" class="col-6" th:each="questionnaire : ${questionnaire}">
                 <span id="ltlState" th:text="${questionnaire.questionnaireStates}==true ? '投票中': '已完結'"></span><br />
-                <small
-                    th:text="'投票期間為 : ' + ${#dates.format(questionnaire.startDate, 'yyyy-MM-dd')} + '～' + ${#dates.format(questionnaire.endDate, 'yyyy-MM-dd')}"></small>
+                <small th:text="'投票期間為 : ' + ${#dates.format(questionnaire.startDate, 'yyyy-MM-dd')} + '～' + ${#dates.format(questionnaire.endDate, 'yyyy-MM-dd')}"></small>
             </div>
         </div>
-        <div id="contentDiv" class="col-2" th:each="questionnaire:${questionnaire}">
+        <div id="contentDiv" class="col-8">
             <br>
             <h2 align="center" th:text="${questionnaire.questionnaireTitle}"></h2><br>
             <h4 th:text="${questionnaire.questionnaireBody}"></h4>
         </div>
         <form th:action="@{/formPage}" method="post">
-            <div id="userInfoQuestion" class="col-6">
-                <br>
+            <div id="userInfoQuestion" class="col-8">
+                <br><br>
                 <span>打 * 號者為必填(或必選)</span><br><br>
                 <div class="form-group">
                     <label>(*)姓名:</label>&emsp;&emsp;
                     <input th:if="${session.userinfo} ==null" type="text" style="width: 250px" id="txtname"
-                        name="username" Class="Must" placeholder="王小明" required>
+                        th:name="username" Class="Must" placeholder="王小明" required />
                     <input th:unless="${session.userinfo} ==null" th:value="${session.userinfo.name}" type="text"
-                        style="width: 250px;" id="txtname" Class="Must" name="username" placeholder="王小明" required>
+                        style="width: 250px;" id="txtname" Class="Must" th:name="username" placeholder="王小明" required />
                     *請輸入中文姓名*
                 </div>
                 <br>
                 <div class="form-group">
                     <label>(*)手機:</label>&emsp;&emsp;
-                    <input th:if="${session.userinfo} ==null" type="tel" style="width: 250px;" id="txtphone"
-                        name="userphone" Class="Must" placeholder="0912345678">
-                    <input th:unless="${session.userinfo} ==null" th:value="${session.userinfo.phone}" type="tel"
-                        style="width: 250px;" id="txtphone" name="userphone" max="10" Class="Must" placeholder="0912345678">
+                    <input th:if="${session.userinfo} ==null" type="tel" pattern="09.{8}" style="width: 250px;" id="txtphone"
+                        th:name="userphone" Class="Must" placeholder="0912345678" />
+                    <input th:unless="${session.userinfo} ==null" th:value="${session.userinfo.phone}" type="tel" pattern="09.{8}"
+                        style="width: 250px;" id="txtphone" th:name="userphone" max="10" Class="Must" placeholder="0912345678" />
                     *請輸入10位數字的號碼*
                 </div>
                 <br>
                 <div class="form-group">
                     <label>(*)Email:</label>&emsp;&nbsp;
                     <input th:if="${session.userifo} ==null" type="email" style="width: 250px;" id="txtemail"
-                        name="useremail" Class="Must" placeholder="dog@yahoo.com.tw">
+                        th:name="useremail" Class="Must" placeholder="dog@yahoo.com.tw" />
                     <input th:unless="${session.userifo} ==null" th:value="${session.userinfo.email}" type="email"
-                        style="width: 250px;" id="txtemail" name="useremail" Class="Must"
-                        placeholder="dog@yahoo.com.tw"> *信箱應該包含@*
+                        style="width: 250px;" id="txtemail" th:name="useremail" Class="Must"
+                        placeholder="dog@yahoo.com.tw" /> *信箱應該包含@*
                 </div>
                 <br>
                 <div class="form-group">
                     <label>(*)年齡:</label>&emsp;&emsp;
-                    <input th:if="${session.userifo} ==null" type="number" min="10" style="width: 250px;" id="txtage"
-                        name="userage" Class="Must" placeholder="25">
-                    <input th:unless="${session.userifo} ==null" th:value="${session.userinfo.age}" type="number"
-                        min="10" style="width: 250px;" id="txtage" name="userage" Class="Must" placeholder="25">
+                    <input th:if="${session.userifo} ==null" type="number" min="10" max="120" style="width: 250px;" id="txtage"
+                        th:name="userage" Class="Must" placeholder="25" />
+                    <input th:unless="${session.userinfo} ==null" th:value="${session.userinfo.age}" type="number"
+                        min="10" max="120" style="width: 250px;" id="txtage" th:name="userage" Class="Must" placeholder="25" />
                     *請輸入介於10~150之間*
                 </div>
-                <hr class="my-4 invisible">
+                <label ID="mistake" th:text="${errorMsg}" style="color: red" visible="false"></label>
+                <hr class="my-4 invisible" />
                 <div>
-                    <br><br>
-                    <div th:each="question,issue : ${questionInfo}">
-                        <h4 th:text="'第' + ${issue.count} + '題 : '+{question.questionTitle}"></h4>
-                        <p th:if="${question.nullable eq 'on'}" style="color: red">(*必填)</p>
-                        <input type="radio" th:if="${question.questionType}==0" th:name="${issue.index}"
-                            th:each="quesAnswer:${#strings.arraySplit(question.questionChoices, ';')}"
-                            th:text="${quesAnswer}" th:value="${quesAnswer}" class="inputRadio"
-                            th:id="${question.questionId}">
-                        <input type="checkbox" th:if="${question.questionType}==1" th:name="${issue.index}"
-                            th:each="quesAnswer:${#strings.arraySplit(question.questionChoices, ';')}"
-                            th:text="${quesAnswer}" th:value="${quesAnswer}" class="inputcheck"
-                            th:id="${question.questionId}">
-                        <textarea th:if="${question.questionType}==2" class="col-2 textArea" placeholder="請在此作答" name=""
-                            th:id="${question.questionId}"></textarea>
+                    <br /><br />
+                    <div th:each="question,status : ${questionList}">
+						<div th:if="${question.mustKeyin}==true"> 
+					       <small style="color: red">(*必填)</small>
+		                   <h5 th:text="'第' + ${status.count} + '題 : '+ ${question.questionTitle} + '?'"></h5>
+		                   <br>
+		                   <input type="radio" th:if ="${question.questionType}==0" th:name="${status.index}" 
+		                     th:each="quesAnswer:${#strings.arraySplit(question.questionChoices, ';')}" 
+		                     th:text="${quesAnswer}" th:value="${quesAnswer}" class="inputRadio" 
+		                     th:id="${question.questionNumber}">
+		                   <input type="checkbox" th:if ="${question.questionType}==1" th:name="${status.index}" 
+		                     th:each="quesAnswer:${#strings.arraySplit(question.questionChoices, ';')}" 
+		                     th:text="${quesAnswer}" th:value="${quesAnswer}" class="inputCheck" 
+		                     th:id="${question.questionNumber}">
+		                   <textarea th:if ="${question.questionType}==2" class="col-2 txtArea" placeholder="請在此作答" 
+		                     th:id="${question.questionNumber}"></textarea>                  
+		                </div>
+		                
+		                <div th:unless="${question.mustKeyin}==true">
+		                   <h5 th:text="'第' + ${status.count} + '題 : '+ ${question.questionTitle} + '?'"></h5>
+		                   <br>                
+		                   <input type="radio" th:if ="${question.questionType}==0" th:name="${status.index}" 
+		                     th:each="quesAnswer:${#strings.arraySplit(question.questionChoices, ';')}" 
+		                     th:text="${quesAnswer}" th:value="${quesAnswer}" class="inputRadio" 
+		                     th:id="${question.questionNumber}">
+		                   <input type="checkbox" th:if ="${question.questionType}==1" th:name="${status.index}" 
+		                     th:each="quesAnswer:${#strings.arraySplit(question.questionChoices, ';')}" 
+		                     th:text="${quesAnswer}" th:value="${quesAnswer}" class="inputCheck" 
+		                     th:id="${question.questionNumber}">
+		                   <textarea th:if ="${question.questionType}==2" class="col-2 txtArea" placeholder="請在此作答" 
+		                     th:id="${question.questionNumber}"></textarea>
+		                </div>
                         <hr class="invisible" />
                     </div>
                 </div>
             </div>
             <div align="right" id="btnSpace" class="col-2">
                 <div class="col-3" th:each="amount : ${answerList}">
-                    <br><br>
-                    <span th:text="'共' + ${amount.answerCount} + '個問題'"></span><br><br>
+                    <br /><br />
+                    <span th:text="'共' + ${amount.answerCount} + '個問題'"></span><br /><br />
                 </div>
                 <div class="col-8" align="right">
-                    <button type="button" class="btn btn-danger" onClick="window.location.href='/listPage'">取消</button>
-                    <button type="button" class="btn btn-primary" id="btnSubmit"
-                        onClick="window.location.href='/confirmPage'">送出</button>
+                    <button type="reset" class="btn btn-danger" onClick="window.location.href='/listPage'">取消</button>
+                    <button type="submit" class="btn btn-primary" id="btnSubmit">送出</button>
                 </div>
                 <div class="col-1"></div>
             </div>

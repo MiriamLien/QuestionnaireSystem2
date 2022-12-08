@@ -1,70 +1,75 @@
 package com.QuesSystem.ques.entity;
 
 import java.util.Date;
+import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.ManyToOne;
 import javax.persistence.NamedQuery;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.xml.bind.annotation.XmlRootElement;
 
 import org.hibernate.annotations.GenericGenerator;
 
 @Entity
-@Table(name = "questionnaires") // è·Ÿè³‡æ–™åº«äº’å‹•
+@Table(name = "questionnaires")  
 @XmlRootElement
-@NamedQuery(name = "questionnaires.findall", query = "SELECT q FROM Questionnaire q")
-public class Questionnaire {
-
+@NamedQuery(name = "questionnaires.findAll", query = "SELECT q FROM Questionnaire q")
+public class Questionnaire{
+	
 	/*
-	 * å•å·ID(ä¸»éµ)
+	 * °İ¨÷ID(¥DÁä)
 	 */
+	// ¸ê®Æ«¬ºA¬°UUID
+	// unique: ¬O°ß¤@­È
 	@Id
-	// è³‡æ–™å‹æ…‹ç‚ºUUID
 	@GeneratedValue(generator = "uuid")
 	@GenericGenerator(name = "uuid", strategy = "uuid")
-	// unique: æ˜¯å”¯ä¸€å€¼
 	@Column(name = "questionnaire_id", unique = true)
 	private String questionnaireId;
 
-	/**
-	 * å•å·æ¨™é¡Œ
-	 */
-	@Column(name = "questionnaire_title", length = 20)
-	private String questionnaireTitle;
-
-	/**
-	 * å•å·å…§å®¹
-	 */
-	@Column(name = "questionnaire_body", length = 200)
-	private String questionnaireBody;
-
 	/*
-	 * å•å·ç‹€æ…‹
+	 * °İ¨÷¼ĞÃD
+	 */
+	@Column(name = "questionnaire_title", length=20)	
+	private String questionnaireTitle;
+    
+	/*
+	 * °İ¨÷¤º®e
+	 */
+	@Column(name = "questionnaire_body", length=200)	
+	private String questionnaireBody;
+	
+	/*
+	 * °İ¨÷ª¬ºA
 	 */
 	@Column(name = "questionnaire_states")
 	private boolean questionnaireStates;
-
+		
 	/*
-	 * é–‹å§‹æ™‚é–“
+	 * ¶}©l¤é´Á
 	 */
-	@Column(name = "start_date")
+	@Column(name="start_date")
 	private Date startDate;
 
 	/*
-	 * çµæŸæ™‚é–“
+	 * µ²§ô¤é´Á
 	 */
-	@Column(name = "end_date")
-	private Date endDate;
-
+	@Column(name="end_date")
+	private Date endDate;	
+	
 	/*
-	 * (å•å·)å‰µå»ºæ—¥æœŸ
+	 * ³Ğ«Ø¤é´Á(¦Û°Ê¥Í¦¨)
 	 */
-	@Column(name = "create_date")
+	@Column(name="create_date")
 	private Date createDate = new Date();
-
+	
 	
 	public String getQuestionnaireId() {
 		return questionnaireId;
@@ -97,7 +102,7 @@ public class Questionnaire {
 	public void setQuestionnaireStates(boolean questionnaireStates) {
 		this.questionnaireStates = questionnaireStates;
 	}
-
+	
 	public Date getStartDate() {
 		return startDate;
 	}

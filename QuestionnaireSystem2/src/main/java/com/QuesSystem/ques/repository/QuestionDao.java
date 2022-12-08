@@ -10,27 +10,39 @@ import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.QuesSystem.ques.entity.Question;
+import com.QuesSystem.ques.entity.Questionnaire;
 
-@Repository
 @Transactional
+@Repository
 public interface QuestionDao extends JpaRepository<Question, String> {
 
-	/* 問題清單搜尋
-	 * 使用questionId
-	 */
+	/* 
+	 * 問題清單搜尋(使用questionId)
+	 */	
 	@Query("select ques from Question ques where ques.questionId = :inputQId")
 	public List<Question> findListByQuestionId(@Param("inputQId") String questionId);
 	
-	/* 問題清單搜尋
-	 * 使用questionnaireId
+	/* 
+	 * 問題清單搜尋(使用questionnaireId)
+	 * (使用於頁面顯示問題)
 	 */
-	@Query("select ques from Question ques where ques.questionnaireId = :inputQuesId")
-	public List<Question> findListByQuestionnaireId(@Param("inputQuesId") String questionnaireId);
+	public List<Question> findListByQuestionnaireId(Questionnaire questionnaireId);
+	/* 
+	 * 問題清單搜尋(使用questionnaireId)
+	 */
+	@Query("select ques from Question ques where ques.questionnaireId = :questionnaireId")
+	public List<Question> findByQuestionnaireId(@Param("questionnaireId") String questionnaireId);
 	
-	/* 刪除問題
-	 * 使用questionnaireId
+	/* 
+	 * 問題搜尋(使用questionId)
+	 */
+	@Query("select ques from Question ques where ques.questionId = :inputQId")
+	public void findByQuestionId(@Param("inputQId") String questionId);
+	
+	/* 
+	 * 刪除問題(使用questionnaireId)
 	 */
 	@Modifying
 	@Query("delete from Question ques where ques.questionnaireId = :inputQuesId")
-	public void deleteByQuestionnaireId(@Param("inputQuesId") String[] questionnaireId);
+	public void deletebyQuestionnaireId(@Param("inputQuesId") String[] questionnaireId);
 }

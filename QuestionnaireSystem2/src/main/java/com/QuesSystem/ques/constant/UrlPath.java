@@ -43,7 +43,7 @@ public class UrlPath {
 		public static final String URL_BACK_ADDQUESTIONNAIRE = "/backAddquestionnaire";
 		
 		/**
-	     * 後台 - 常用問題列表頁
+	     * 後台 - 常用問題管理頁面
 	     */	
 		public static final String URL_BACK_OFTENUSE = "/backOftenUse";
 		

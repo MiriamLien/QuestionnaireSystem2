@@ -11,6 +11,8 @@ import javax.persistence.Table;
 import javax.xml.bind.annotation.XmlRootElement;
 
 import org.hibernate.annotations.GenericGenerator;
+import org.hibernate.annotations.SQLDelete;
+import org.hibernate.annotations.Where;
 
 @Entity
 @Table(name = "oftenuse")
@@ -18,58 +20,76 @@ import org.hibernate.annotations.GenericGenerator;
 @NamedQuery(name = "oftenuse.findAll", query = "SELECT often FROM OftenUseQuestion often")
 public class OftenUseQuestion {
 
+	/*
+	 * 常用問題ID
+	 */
 	@Id
 	@GeneratedValue(generator = "uuid")
 	@GenericGenerator(name = "uuid", strategy = "uuid")
 	@Column(name = "oftenuse_id", unique = true)
 	private String oftenuseId;
-
+	
+	/*
+	 * 常用問題標題
+	 */
 	@Column(name = "oftenuse_title", length = 15)
-	private String title;
+	private String oftenuseTitle;
 
+	/*
+	 * 常用問題回答
+	 */
 	@Column(name = "oftenuse_choices")
-	private String choices;
-
+	private String oftenuseChoices;
+	
+	/*
+	 * 常用問題類型
+	 */
 	@Column(name = "oftenuse_type")
-	private int type;
+	private int oftenuseType;
 
+	/*
+	 * 是否為必填項目
+	 */
 	@Column(name = "must_keyin")
 	private boolean mustKeyin;
-
-	@Column(name = "create_date")
+	
+	/*
+	 * 創建日期
+	 */
+	@Column(name="create_date")
 	private Date createDate = new Date();
 
-
-	public String getOftenUseId() {
+	
+	public String getOftenuseId() {
 		return oftenuseId;
 	}
 
-	public void setOftenUseId(String oftenuseId) {
+	public void setOftenuseId(String oftenuseId) {
 		this.oftenuseId = oftenuseId;
 	}
 
-	public String getTitle() {
-		return title;
+	public String getOftenuseTitle() {
+		return oftenuseTitle;
 	}
 
-	public void setTitle(String title) {
-		this.title = title;
+	public void setOftenuseTitle(String oftenuseTitle) {
+		this.oftenuseTitle = oftenuseTitle;
 	}
 
-	public String getChoices() {
-		return choices;
+	public String getOftenuseChoices() {
+		return oftenuseChoices;
 	}
 
-	public void setChoices(String choices) {
-		this.choices = choices;
+	public void setOftenuseChoices(String oftenuseChoices) {
+		this.oftenuseChoices = oftenuseChoices;
 	}
 
-	public int getType() {
-		return type;
+	public int getOftenuseType() {
+		return oftenuseType;
 	}
 
-	public void setType(int type) {
-		this.type = type;
+	public void setOftenuseType(int oftenuseType) {
+		this.oftenuseType = oftenuseType;
 	}
 
 	public boolean isMustKeyin() {
