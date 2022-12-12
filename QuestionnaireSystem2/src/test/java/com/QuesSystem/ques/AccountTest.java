@@ -8,7 +8,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 import com.QuesSystem.ques.entity.Account;
 import com.QuesSystem.ques.repository.AccountDao;
 
-// ¬°§ä¨ì@SpringBootApplication¥D°t¸mÃş§O¨Ó±Ò°ÊSpring BootÀ³¥Îµ{¦¡Àô¹Ò
+// ç‚ºæ‰¾åˆ°@SpringBootApplicationä¸»é…ç½®é¡åˆ¥ä¾†å•Ÿå‹•Spring Bootæ‡‰ç”¨ç¨‹å¼ç’°å¢ƒ
 @SpringBootTest(classes = QuesApplication.class)
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
 public class AccountTest {

@@ -11,101 +11,106 @@ import org.springframework.data.domain.Sort.Order;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
 
+import com.QuesSystem.ques.constant.AlertMessage;
 import com.QuesSystem.ques.entity.OftenUseQuestion;
 import com.QuesSystem.ques.enums.QuestionType;
 import com.QuesSystem.ques.repository.OftenUseQuestionDao;
 import com.QuesSystem.ques.service.ifs.OftenUseQuestionService;
 
 @Service
-public class OftenUseQuestionServiceImpl implements OftenUseQuestionService {
+public class OftenUseQuestionImpl implements OftenUseQuestionService {
 
 	@Autowired
 	private OftenUseQuestionDao oftenUseQuestionDao;
 
 	private Logger logger = LoggerFactory.getLogger(getClass());
 
-	/*
-	 * ·s¼W±`¥Î°İÃD¨¾§b
-	 */
+	// <æ–°å¢å¸¸ç”¨å•é¡Œé˜²å‘†>
 	@Override
-	public String ErrorMsg(String title, String choices, int type) {
-		// <°İÃD¼ĞÃD¨¾§b>
-		// °İÃD¼ĞÃD¬°ªÅ
-		if (!StringUtils.hasText(title)) {
-			return "*¥¼¿é¤J°İÃD¼ĞÃD*";
-		  // °İÃD¦Ü¤Ö­n¦³¤T­Ó¦r
-		} else if (title.length() < 3) {
-			return "*°İÃD¼ĞÃD¤Ö©ó3­Ó¦r*";
+	public String ErrorMsg(String oftenuseTitle, String oftenuseChoices, int oftenuseType) {
+		// <å¸¸ç”¨å•é¡Œæ¨™é¡Œé˜²å‘†>
+		// è‹¥å•é¡Œæ¨™é¡Œç‚ºç©º
+		if (!StringUtils.hasText(oftenuseTitle)) {
+			// å›å‚³æç¤ºè¨Šæ¯
+			return AlertMessage.QuestionMsg.No_QuesTitle;
+			// è‹¥å•é¡Œæ¨™é¡Œå°‘æ–¼ä¸‰å€‹å­—
+		} else if (oftenuseTitle.length() < 3) {
+			// å›å‚³æç¤ºè¨Šæ¯
+			return AlertMessage.QuestionMsg.Title_AtLeastThree;
 		}
 
-		// <°İÃDµª®×§Y°İÃDºØÃş¨¾§b>
-		// ³æ¿ï¤è¶ô»İ­n¿é¤J°İÃDµª®×
-		if (type == QuestionType.³æ¿ï¤è¶ô.getCode() && choices == null) {
-			return "*¥²¶·§â°İÃD©Mµª®×¿é¤J§¹¾ã*";
-		// ³æ¿ï¤è¶ô»İ­n¿é¤J°İÃDµª®×
-		} else if (type == QuestionType.³æ¿ï¤è¶ô.getCode() && choices.length() < 6) {
-			return "*¥²¶·§â°İÃD¿é¤J§¹¾ã,µª®×¦Ü¤Ö»İ­n¦³4­Ó¦r*";
+		// <å•é¡Œç­”æ¡ˆåŠå•é¡Œç¨®é¡é˜²å‘†>
+		// å–®é¸æ–¹å¡Šå¿…é ˆè¼¸å…¥å•é¡ŒåŠç­”æ¡ˆ
+		if (oftenuseType == QuestionType.å–®é¸æ–¹å¡Š.getCode() && oftenuseChoices == null) {
+
+			return AlertMessage.QuestionMsg.Must_QuesAndAns;
+			// æˆ–æ˜¯å–®é¸æ–¹å¡Šå¿…é ˆè¼¸å…¥å•é¡Œå¤–, ç­”æ¡ˆä¹Ÿè‡³å°‘è¦æœ‰6å€‹å­—
+		} else if (oftenuseType == QuestionType.å–®é¸æ–¹å¡Š.getCode() && oftenuseChoices.length() < 6) {
+
+			return AlertMessage.QuestionMsg.Radio_Must_QuesAndAnsMustSix;
 		}
 
-		// ½Æ¿ï¤è¶ô»İ­n¿é¤J°İÃDµª®×
-		if (type == QuestionType.½Æ¿ï¤è¶ô.getCode() && choices == null) {
-			return "*¥²¶·§â°İÃD©Mµª®×¿é¤J§¹¾ã*";
-		// ³æ¿ï¤è¶ô»İ­n¿é¤J°İÃDµª®×
-		} else if (type == QuestionType.½Æ¿ï¤è¶ô.getCode() && choices.length() < 8) {
-			return "*¥²¶·§â°İÃD¿é¤J§¹¾ã,µª®×¦Ü¤Ö»İ­n¦³4­Ó¦r*";
+		// è¤‡é¸æ–¹å¡Šå¿…é ˆè¼¸å…¥å•é¡ŒåŠç­”æ¡ˆ
+		if (oftenuseType == QuestionType.è¤‡é¸æ–¹å¡Š.getCode() && oftenuseChoices == null) {
+
+			return AlertMessage.QuestionMsg.Must_QuesAndAns;
+			// æˆ–æ˜¯è¤‡é¸æ–¹å¡Šå¿…é ˆè¼¸å…¥å•é¡Œå¤–, ç­”æ¡ˆä¹Ÿè‡³å°‘è¦æœ‰8å€‹å­—
+		} else if (oftenuseType == QuestionType.è¤‡é¸æ–¹å¡Š.getCode() && oftenuseChoices.length() < 8) {
+
+			return AlertMessage.QuestionMsg.Check_Must_QuesAndAnsMustEight;
 		}
-		
-		// ¤å¦r¤è¶ô¤£»İ­n¿é¤J°İÃDµª®×
-		if (type == QuestionType.¤å¦r¤è¶ô.getCode() && choices != null) {
-			return "*¿ï¾Ü¤å¦r¤è¶ô¤£»İ­n¿é¤J¦^µªÄæ¦ì*";
+
+		// <åˆ¤æ–·æ–‡å­—æ–¹å¡Š: æ–‡å­—æ–¹å¡Šå¿…é ˆè¼¸å…¥å•é¡Œï¼Œä½†ä¸éœ€è¦è¼¸å…¥ç­”æ¡ˆ>
+		if (oftenuseType == QuestionType.æ–‡å­—æ–¹å¡Š.getCode() && oftenuseChoices != null) {
+
+			return AlertMessage.QuestionMsg.TextBox_MustQues_NoAns;
 		}
+
 		return "";
 	}
 
-	/*
-	 * ¨ú±o±`¥Î°İÃD
-	 * @param pageNum
-	 * @param pageSize
+	/**
+	 * @param pageNum		é ç¢¼
+	 * @param pageSize      ç­†æ•¸
 	 * @return oftenuseQues
 	 */
 	@Override
 	public Page<OftenUseQuestion> getOftenUseByPageList(int pageNum, int pageSize) {
-		// 1.¨Ï¥Î Sort.by()¥ı¶i¦æ±Æ§Ç
+		// 1. ä½¿ç”¨ Sort.by()ï¼Œæ ¹æ“šå‰µå»ºæ—¥æœŸé€²è¡Œ(é€†åº)æ’åº
 		Order order = new Sort.Order(Sort.Direction.DESC, "createDate");
-		// 2.¦A°µ¤À­¶
+		// 2. å†åšåˆ†é 
 		Pageable pageable = PageRequest.of(pageNum, pageSize, Sort.by(order));
-		// 3.¦Û©w¸qªº --> Page<> ªº¤èªk(¦C¥X¤£¬O±`¥Î°İÃDªº)
+		// 3. è‡ªå®šç¾©çš„ --> Page<> çš„æ–¹æ³•(åˆ—å‡ºä¸æ˜¯å¸¸ç”¨å•é¡Œçš„)
 		Page<OftenUseQuestion> oftenuseQues = oftenUseQuestionDao.findAll(pageable);
-		// 4.¦^¶ÇoftenuseQues
+		// 4. å›å‚³oftenuseQues
 		return oftenuseQues;
 	}
 
-	/*
-	 * (ÂÇ¥Ñ¼ĞÃD)·j´M±`¥Î°İÃD
-	 * @param pageNum
-	 * @param pageSize
-	 * @param oftenuseTitle ±`¥Î°İÃD¼ĞÃD
+	/**
+	 * @param pageNum       é ç¢¼
+	 * @param pageSize      ç­†æ•¸
+	 * @param oftenuseTitle å¸¸ç”¨å•é¡Œæ¨™é¡Œ
 	 * @return oftenuseQues
 	 */
 	@Override
-	public Page<OftenUseQuestion> searchOftenUseByoftenuseTitle(int pageNum, int pageSize, String title) {
-		// ¨Ï¥Î Sort.by()¥ı¶i¦æ±Æ§Ç
+	public Page<OftenUseQuestion> searchOftenUseByoftenuseTitle(int pageNum, int pageSize, String oftenuseTitle) {
+		// 1. ä½¿ç”¨ Sort.by()ï¼Œæ ¹æ“šå‰µå»ºæ—¥æœŸé€²è¡Œ(é€†åº)æ’åº
 		Order order = new Sort.Order(Sort.Direction.DESC, "createDate");
-		// 2.¦A°µ¤À­¶
+		// 2. å†åšåˆ†é 
 		Pageable pageable = PageRequest.of(pageNum, pageSize, Sort.by(order));
-		// 3.¦Û©w¸qªº --> Page<> ªº¤èªk(¨Ï¥Î±`¥Î°İÃD¼ĞÃD·j´M)
-		Page<OftenUseQuestion> oftenuseQues = oftenUseQuestionDao.findByOftenuseTitle(pageable, title);
-		// 4.¦^¶ÇoftenuseQues
+		// 3. è‡ªå®šç¾©çš„ --> Page<> çš„æ–¹æ³•(ä½¿ç”¨å¸¸ç”¨å•é¡Œæ¨™é¡Œé€²è¡Œæœå°‹)
+		Page<OftenUseQuestion> oftenuseQues = oftenUseQuestionDao.findByOftenuseTitle(pageable, oftenuseTitle);
+		// 4. å›å‚³oftenuseQues
 		return oftenuseQues;
 	}
 
-	/*
-	 * §R°£±`¥Î°İÃD
-	 */
 	@Override
-	public void deleteOftenUseQuestion(String[] oftenuse) {
+	public void deleteOftenUseQuestion(String[] oftenuseIds) {
+		
 		try {
-			for (String oftenuseId : oftenuse) {
+
+			for (String oftenuseId : oftenuseIds) {
+				
 				oftenUseQuestionDao.deleteById(oftenuseId);
 			}
 		} catch (Exception e) {
