@@ -65,9 +65,9 @@ public class AlertMessage {
 
 		public static final String Must_QuesAndAns = "*必須輸入問題和答案*";
 
-		public static final String Check_Must_QuesAndAnsMustEight = "*單選方塊必須輸入問題和答案, 答案至少要有八個字*";
+		public static final String Check_Must_QuesAndAnsMustEight = "*複選方塊必須輸入問題和答案, 答案至少要有八個字*";
 
-		public static final String Radio_Must_QuesAndAnsMustSix = "*複選方塊必須輸入問題和答案, 答案至少要有六個字*";
+		public static final String Radio_Must_QuesAndAnsMustSix = "*單選方塊必須輸入問題和答案, 答案至少要有六個字*";
 
 		public static final String TextBox_MustQues_NoAns = "*文字方塊必須輸入問題, 但不需要輸入答案*";
 		
@@ -106,5 +106,14 @@ public class AlertMessage {
 		public static final String Check_Must_Keyin = "請檢查必填後再送出";
 		
 		public static final String Answer_Finish = "作答成功!! 感謝您的填寫";
+	}
+	
+	public static class LoginMsg {
+		
+		public static final String Login_Success = "登入成功";
+		
+		public static final String Check_Account_Password = "查無此人, 請再次確認所輸入的帳號密碼";
+		
+		public static final String Logout_Success = "登出成功";
 	}
 }

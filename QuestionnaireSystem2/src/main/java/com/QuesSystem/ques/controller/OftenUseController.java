@@ -1,6 +1,7 @@
 package com.QuesSystem.ques.controller;
 
 import java.text.ParseException;
+import java.util.Optional;
 
 import javax.servlet.http.HttpSession;
 
@@ -9,8 +10,10 @@ import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.QuesSystem.ques.constant.AlertMessage;
@@ -19,6 +22,7 @@ import com.QuesSystem.ques.entity.OftenUseQuestion;
 import com.QuesSystem.ques.repository.OftenUseQuestionDao;
 import com.QuesSystem.ques.service.ifs.OftenUseQuestionService;
 import com.QuesSystem.ques.service.ifs.QuestionService;
+import com.google.gson.Gson;
 
 @Controller
 public class OftenUseController {
@@ -235,5 +239,18 @@ public class OftenUseController {
 		
 		redirectAttrs.addFlashAttribute("oftenuseMessage", AlertMessage.QuestionMsg.Save_EditedOftenUse_Success);
 		return "redirect:/backOftenUse";
+	}
+	
+	@ResponseBody
+	@GetMapping(value = { "/ViewOftenUseQuestion/{Id}" })
+	public String viewOftenUseQuestion(Model model, @PathVariable("Id") String Id) {
+		Gson gson = new Gson();
+		Optional<OftenUseQuestion> oftenusequestion = oftenUseQuestionDao.findById(Id);
+
+		if (!oftenusequestion.isEmpty()) {
+			return gson.toJson(oftenusequestion.get());
+		}
+
+		return "nothing";
 	}
 }

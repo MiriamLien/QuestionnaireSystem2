@@ -34,8 +34,7 @@
 		</div>
 		<div id="logoutDiv" align="right">
 			<label id="ltlMsg"> (若要前往前台請先登出) </label>&emsp;
-			<button type=submit id="btnLogout" class="btn btn-primary"
-				onClick="window.location.href='/login';">登出</button>
+			<a href="/logout" th:unless="${session.accountInfo} ==null" class="btn btn-primary">登出</a>
 		</div>
 	</div>
 	<form th:action="@{/backListPage}" method="get">

@@ -8,4 +8,5 @@ import com.QuesSystem.ques.entity.Account;
 @Repository
 public interface AccountDao extends JpaRepository<Account, String> {
 
+	public Account getAccountInfoByAccountAndPassword(String account, String password);
 }

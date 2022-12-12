@@ -46,7 +46,7 @@ public class ListPageController {
 	}
 	
 	// (前台列表頁)搜尋功能
-	@GetMapping(value = { "/listPage" }, params = "search")
+	@GetMapping(value = { UrlPath.Path.URL_FRONT_LISTPAGE }, params = "search")
 	public String backListSearchKey(Model model,
                                     RedirectAttributes redirectAttrs,
                                     @RequestParam(name = "pageNum", required = false, defaultValue = "0") int pageNum,

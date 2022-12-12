@@ -183,35 +183,35 @@
 									<th></th>
 									<th>#</th>
 									<th>問題</th>
-									<th>種類</th>
+									<th>種類(0:單選, 1:複選, 2:文字)</th>
 									<th>必填</th>
 									<th></th>
 								</tr>
 								<tr th:each="questions, status: ${session.questions}">
-									<td>
+									<td width="100px">
 										<input type="checkbox" th:if="${questions.questionId} == 0"
 											th:value="${status.index}" th:name="index" />
 										<input type="checkbox" th:unless="${questions.questionId} == 0"
 											th:value="${questions.questionId}" th:name="Id" />
 									</td>
-									<td>
+									<td width="120px">
 										<span ID="hfquesDetailID" th:text="${status.count}"></span>
 									</td>
 									<td>
 										<label id="lblquesDetailTitle" th:text="${questions.questionTitle}"></label>
 									</td>
-									<td>
+									<td width="300px">
 										<label id="lblquesDetailType" th:text="${questions.questionType}"></label>
 									</td>
-									<td>
+									<td width="150px">
 										<input type="checkbox" id="ckbListUse" disabled="disabled" checked="checked"
 											th:checked="${questions.mustKeyin}" /></td>
-									<td>
-										<a th:text="編輯" th:name="${status.index}"></a>
+									<td width="150px">
+										<a th:text="編輯" class="editQuestion" th:name="${status.count}"></a>
 									</td>
 								</tr>
 							</table>
-							<button id="btnquescancle" type="reset" onClick="window.location.href='/backListPage';" class="cancle">取消</button>
+							<button id="btnquescancel" type="reset" onClick="window.location.href='/backListPage';" class="cancel">取消</button>
 							&emsp;&emsp;
 							<button type="submit" class="save" th:if="${changeques} == null" th:name="createquestion">送出</button>
 							<button type="submit" class="save" th:unless="${changeques} == null" th:name="editquestion">修改</button>
@@ -303,9 +303,9 @@
 						<div class="tab-pane fade" id="formTotal" role="tabpanel" aria-labelledby="Link-Total-tab">
 							<div th:if="${totalanswerVal} != null" th:each="total, status : ${totalanswerVal}">
 							<br/>							
-							    <h5 th:text="${status.count}+'. ' + ${total.title} + '?'"></h5>
+							    <h5 th:text="${status.count}+'. ' + ${total.title}"></h5>
                                  <th:block th:each="choices, status : ${total.choicesMap}">
-                                     <p th:text="${choices.getKey()} +' : ' + ${choices.getValue()}"></p>
+                                     <p th:text="${choices.getKey()} +' (' + ${choices.getValue()} +') '"></p>
                                  </th:block>
 							</div>
 							<div th:unless="${totalanswerVal} != null">

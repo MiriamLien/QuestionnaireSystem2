@@ -12,22 +12,27 @@
 		}
 	</style>
 	<script th:inline="javascript">
-		var message = /*[[${alertMessage}]]*/ "";
-		if(message != null)
-		alert(message);
+		var message = /*[[${alertMessage}]]*/"";
+		if (message != null)
+			alert(message);
 	</script>
 </head>
 
 <body>
 	<br>
-	<h1 align="center">登入</h1><br>
-	<div id=account>
-		&nbsp;&nbsp;Account： <input type="text" name="account"><br><br>
-		Password： <input type="text" id="password" name="password"><br><br><br>
-	</div>
-	<div align="center">
-		<button type=submit class="btn btn-primary" onclick="window.location.href='/backListPage'">登入</button>&emsp;&emsp;&emsp;&emsp;
-		<input type=button class="btn btn-danger" onclick="window.location.href='/listPage'" value="返回前台">
-	</div>
+	<h1 align="center">登入</h1>
+	<br>
+	<form action="#" th:action="@{/login}" method="post">
+		<div id=account>
+			&nbsp;&nbsp;Account： <input type="text" name="account"><br><br>
+			Password： <input type="text" id="password" name="password"><br>
+			<br><br>
+		</div>
+		<div align="center">
+			<button type=submit class="btn btn-primary" th:name="login">登入</button>
+			&emsp;&emsp;&emsp;&emsp;
+			<input type=reset class="btn btn-danger" onclick="window.location.href='/listPage'" value="返回前台">
+		</div>
+	</form>
 </body>
 </html>

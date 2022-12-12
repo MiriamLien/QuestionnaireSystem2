@@ -64,8 +64,8 @@
 						<br />
 						<div>
 							<span>回答: </span> 
-							<input type="text" ID="txtAnswer" th:name="oftenuseChoices" th:if="${changeoften} == null" />					
-							<input type="text" ID="txtAnswer" th:name="oftenuseChoices" th:unless="${changeoften} == null" th:value="${changeoften.oftenuseChoices}"/>
+							<input type="text" ID="txtAnswer" th:name="oftenuseChoices" th:if="${changeoften} == null" />			
+							<input type="text" ID="txtAnswer" th:name="oftenuseChoices" th:unless="${changeoften} == null" th:value="${changeoften.oftenuseChoices}" />
 							<small>&nbsp;(多個答案以;分隔)&nbsp;/&nbsp;*單選方塊至少需要有兩個選項(至少要有四個字,不包含;)*&nbsp;/&nbsp;*複選方塊至少要有三個選項(至少要有6個字,不包含;)*</small>
 					    </div>
 					    <br />

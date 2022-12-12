@@ -130,10 +130,13 @@ public class QuestionnaireController implements Serializable {
 
 	// 新增問卷
 	@PostMapping(value = "/backAddquestionnaire")
-	public String createQuestionnaire(Model model, HttpSession session,
-			@RequestParam("title") String questionnaireTitle, @RequestParam("body") String questionnaireBody,
-			@RequestParam("startDate") String startDate, @RequestParam("endDate") String endDate,
-			@RequestParam(name = "state", defaultValue = "0") boolean questionnaireStates) throws ParseException {
+	public String createQuestionnaire(Model model,
+									  HttpSession session,
+									  @RequestParam("title") String questionnaireTitle,
+									  @RequestParam("body") String questionnaireBody,
+									  @RequestParam("startDate") String startDate,
+									  @RequestParam("endDate") String endDate,
+									  @RequestParam(name = "state", defaultValue = "0") boolean questionnaireStates) throws ParseException {
 
 		// * 新增問卷(使用ErrorMsg方法)
 		String errorMsg = questionnaireService.ErrorMsg(questionnaireTitle, questionnaireBody, startDate, endDate);
@@ -168,19 +171,6 @@ public class QuestionnaireController implements Serializable {
 		model.addAttribute("oftenuseList", oftenuseList);
 		// 跳轉至後台新增問卷頁面
 		return UrlPath.Path.URL_BACK_ADDQUESTIONNAIRE;
-	}
-
-	@ResponseBody
-	@GetMapping(value = { "/ViewOftenUseQuestion/{Id}" })
-	public String ViewOftenUseQuestionnaire(Model model, @PathVariable("Id") String Id) {
-		Gson gson = new Gson();
-		Optional<OftenUseQuestion> oftenusequestion = oftenUseQuestionDao.findById(Id);
-
-		if (!oftenusequestion.isEmpty()) {
-			return gson.toJson(oftenusequestion.get());
-		}
-
-		return "nothing";
 	}
 
 	// 編輯問卷
@@ -229,7 +219,7 @@ public class QuestionnaireController implements Serializable {
 		return "redirect:/backAddquestionnaire?ID=" + quesID;
 	}
 
-	// 新增問卷
+	// 新增問題
 	@SuppressWarnings("unchecked")
 	@PostMapping(value = { "/backAddquestionnaire" }, params = "createquestion")
 	public String createQues(Model model, HttpSession session, RedirectAttributes redirectAttrs) {
@@ -327,5 +317,21 @@ public class QuestionnaireController implements Serializable {
 
 		redirectAttrs.addFlashAttribute("quesErrorMsg", AlertMessage.QuestionnaireMsg.Save_Questionnaire_Success);
 		return "redirect:/backListPage";
+	}
+	
+	@ResponseBody
+	@GetMapping(value = {"/loadEditQuestion/{count}"})
+	public String getEditQuestion(Model model,
+			                      HttpSession session,
+			                      RedirectAttributes redirectAttrs,
+			                      @PathVariable("count") int count) {
+		
+		Gson gson = new Gson();
+		
+		@SuppressWarnings("unchecked")
+		List<Question> queslist = (List<Question>) session.getAttribute("questions");
+		Question result = queslist.get(count);
+		
+		return gson.toJson(result);	
 	}
 }

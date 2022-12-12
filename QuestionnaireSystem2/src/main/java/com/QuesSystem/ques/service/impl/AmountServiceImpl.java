@@ -29,15 +29,15 @@ public class AmountServiceImpl implements AmountService {
 
 		for (Question question : questionList) {
 			// 如果問題是必填項目
-			if (question.isMustKeyin() == true) {
+			if (question.isMustKeyin() == true || question.isMustKeyin() == false) {
 				// 又是問題類型為文字方塊(2)
 				if (question.getQuestionType() == 2) {
 
 					Map<String, Integer> totalMap = new HashMap<>();
 					TotalAnswerVal totalAns = new TotalAnswerVal();
 
-					totalAns.setTitle(question.getQuestionTitle() + "?(*必填)");
-					totalMap.put("-資料不填寫-", 0);
+					totalAns.setTitle(question.getQuestionTitle() + "? (*必填) ");
+					totalMap.put("-資料不統計-", 0);
 					totalAns.setChoicesMap(totalMap);
 					totalAnswerList.add(totalAns);
 				// 如果問題類型為單/複選方塊(0或1)
@@ -45,7 +45,7 @@ public class AmountServiceImpl implements AmountService {
 
 					TotalAnswerVal totalAnswer = new TotalAnswerVal();
 					// 設定標題(從問題的問題標題取得資訊)
-					totalAnswer.setTitle(question.getQuestionTitle() + "?(*必填)");
+					totalAnswer.setTitle(question.getQuestionTitle() + "? (*必填) ");
 
 					Map<String, Integer> totalMap = new HashMap<>();
 					int count = 0;

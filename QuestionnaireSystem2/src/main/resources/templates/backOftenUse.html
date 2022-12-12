@@ -58,25 +58,28 @@
 									<th></th>
 									<th>#</th>
 									<th>問題</th>
-									<th>種類</th>
+									<th>種類(0:單選, 1:複選, 2:文字)</th>
 									<th>建立時間</th>
 								</tr>
 							</thead>
 							<tbody>
-								<tr th:each="oftenuse,status :${oftenuses}">
-									<td><input type="checkbox" id="ckbDel" th:value="${oftenuse.oftenuseId}" th:name="oftenuseId" /></td>
-									<td><label id="lblNumber" th:text="${status.count}"></label>
+								<tr th:each="oftenuses,status :${oftenuses}">
+									<td width="120px">
+										<input type="checkbox" id="ckbDel" th:value="${oftenuses.oftenuseId}" th:name="oftenuseId" />
 									</td>
-									<td>
-										<a th:href="@{/backAddOftenUse(ID=${oftenuse.oftenuseId})}">
-											<label id="lblQueryName" th:text="${oftenuse.oftenuseTitle}"></label>
+									<td width="120px">
+										<label id="lblNumber" th:text="${status.count}"></label>
+									</td>
+									<td width="600px">
+										<a th:href="@{/backAddOftenUse(ID=${oftenuses.oftenuseId})}">
+											<label id="lblQueryName" th:text="${oftenuses.oftenuseTitle}"></label>
 										</a>
 									</td>
-									<td>
-										<label id="oftenuseType" th:text="${oftenuse.oftenuseType}"></label>
+									<td width="300px">
+										<label id="oftenuseType" th:text="${oftenuses.oftenuseType}"></label>
 									</td>
 									<td>
-										<label id="lblCreateTime" th:text="${#dates.format(oftenuse.createDate, 'yyyy-MM-dd')}"></label>
+										<label id="lblCreateTime" th:text="${#dates.format(oftenuses.createDate, 'yyyy-MM-dd')}"></label>
 									</td>
 								</tr>
 							</tbody>

@@ -4,5 +4,8 @@ import com.QuesSystem.ques.entity.Account;
 
 public interface AccountService {
 
-	public Account getAccountInfo(String account, String password);
+	/*
+	 * ¨ú±o±b¤á
+	 */
+	public Account getAccount(String account, String password);
 }
